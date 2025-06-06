@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { Header } from '@/components/layout/header';
+import { AppWrapper } from '@/components/layout/app-wrapper'; // Yeni oluşturduğumuz sarmalayıcıyı import ediyoruz
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
+// Artık metadata'yı buradan güvenle export edebiliriz
 export const metadata: Metadata = {
   title: 'Ümit Akdeniz | Portfolyo',
   description: 'Modern web teknolojileri ile geliştirildi.',
@@ -19,18 +19,8 @@ export default function RootLayout({
   return (
     <html lang="tr" suppressHydrationWarning>
       <body className={`min-h-screen bg-background font-sans antialiased ${inter.variable}`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col bg-background">
-            <Header />
-            <main className="flex-1">{children}</main>
-            {/* Buraya daha sonra Footer eklenecek */}
-          </div>
-        </ThemeProvider>
+        {/* Tüm istemci taraflı mantık artık bu bileşenin içinde */}
+        <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
   );
