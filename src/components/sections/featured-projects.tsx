@@ -1,39 +1,90 @@
 import { ProjectCard } from '@/components/ui/project-card'
+import { prisma } from '@/lib/prisma'
 
-const featuredProjects = [
-  {
-    id: 1,
-    title: 'Quantum State Visualizer',
-    description:
-      'Interactive quantum state visualizer with 3D qubit animations using React Three Fiber',
-    technologies: ['React', 'Three.js', 'TypeScript', 'Framer Motion'],
-    image: '/images/project-1.jpg',
-    githubUrl: 'https://github.com/umitakdeniz',
-    liveUrl: 'https://example.com',
-  },
-  {
-    id: 2,
-    title: 'Physics Simulation Engine',
-    description:
-      'Real-time physics simulation engine with WebGL support - particle systems and collision calculations',
-    technologies: ['JavaScript', 'WebGL', 'Canvas', 'WebWorkers'],
-    image: '/images/project-2.jpg',
-    githubUrl: 'https://github.com/umitakdeniz',
-    liveUrl: 'https://example.com',
-  },
-  {
-    id: 3,
-    title: 'Mathematical Function Plotter',
-    description:
-      'Advanced mathematical function plotter with 2D/3D graphics and interactive manipulation',
-    technologies: ['Next.js', 'D3.js', 'MathJax', 'Tailwind'],
-    image: '/images/project-3.jpg',
-    githubUrl: 'https://github.com/umitakdeniz',
-    liveUrl: 'https://example.com',
-  },
-]
+async function getFeaturedProjects() {
+  try {
+    const projects = await prisma.project.findMany({
+      where: {
+        published: true,
+        featured: true,
+      },
+      orderBy: {
+        publishedAt: 'desc',
+      },
+      take: 3,
+    })
+    return projects
+  } catch (error) {
+    console.error('Error fetching featured projects:', error)
+    // Fallback to static data if database fails
+    return [
+      {
+        id: '1',
+        title: 'Quantum State Visualizer',
+        description:
+          'Interactive quantum state visualizer with 3D qubit animations using React Three Fiber',
+        technologies: ['React', 'Three.js', 'TypeScript', 'Framer Motion'],
+        image: '/images/project-1.jpg',
+        githubUrl: 'https://github.com/umitakdeniz',
+        demoUrl: 'https://example.com',
+        slug: 'quantum-visualizer',
+        featured: true,
+        published: true,
+        status: 'active',
+        authorId: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        publishedAt: new Date(),
+        content: null,
+        tags: [],
+      },
+      {
+        id: '2',
+        title: 'Physics Simulation Engine',
+        description:
+          'Real-time physics simulation engine with WebGL support - particle systems and collision calculations',
+        technologies: ['JavaScript', 'WebGL', 'Canvas', 'WebWorkers'],
+        image: '/images/project-2.jpg',
+        githubUrl: 'https://github.com/umitakdeniz',
+        demoUrl: 'https://example.com',
+        slug: 'physics-engine',
+        featured: true,
+        published: true,
+        status: 'active',
+        authorId: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        publishedAt: new Date(),
+        content: null,
+        tags: [],
+      },
+      {
+        id: '3',
+        title: 'Mathematical Function Plotter',
+        description:
+          'Advanced mathematical function plotter with 2D/3D graphics and interactive manipulation',
+        technologies: ['Next.js', 'D3.js', 'MathJax', 'Tailwind'],
+        image: '/images/project-3.jpg',
+        githubUrl: 'https://github.com/umitakdeniz',
+        demoUrl: 'https://example.com',
+        slug: 'math-plotter',
+        featured: true,
+        published: true,
+        status: 'active',
+        authorId: '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        publishedAt: new Date(),
+        content: null,
+        tags: [],
+      },
+    ]
+  }
+}
 
-export function FeaturedProjects() {
+export async function FeaturedProjects() {
+  const featuredProjects = await getFeaturedProjects()
+
   return (
     <section className="relative container py-20 text-center md:py-24">
       {/* Background decoration */}
@@ -52,10 +103,10 @@ export function FeaturedProjects() {
             <ProjectCard
               title={project.title}
               description={project.description}
-              image={project.image}
-              technologies={project.technologies}
-              githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
+              image={project.image || '/images/placeholder.jpg'}
+              technologies={project.technologies || []}
+              githubUrl={project.githubUrl || ''}
+              liveUrl={project.demoUrl || ''}
             />
           </div>
         ))}

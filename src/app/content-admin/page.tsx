@@ -17,8 +17,8 @@ import {
   X,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface Project {
   id: string
@@ -166,7 +166,10 @@ export default function AdminPage() {
         setSuccess('Project saved successfully!')
       } else {
         const errorData = await response.json()
-        setError(errorData.message || 'Failed to save project')
+        console.error('API Error:', errorData)
+        setError(
+          errorData.details || errorData.error || `Failed to save project (${response.status})`
+        )
       }
     } catch (error) {
       setError('Network error occurred')
@@ -214,7 +217,10 @@ export default function AdminPage() {
         setSuccess('Article saved successfully!')
       } else {
         const errorData = await response.json()
-        setError(errorData.message || 'Failed to save article')
+        console.error('API Error:', errorData)
+        setError(
+          errorData.details || errorData.error || `Failed to save article (${response.status})`
+        )
       }
     } catch (error) {
       setError('Network error occurred')
@@ -628,9 +634,7 @@ export default function AdminPage() {
               type="text"
               className="w-full p-2 border border-border rounded-lg bg-background"
               value={editingArticle?.title || ''}
-              onChange={(e) =>
-                setEditingArticle((prev) => ({ ...prev, title: e.target.value }))
-              }
+              onChange={(e) => setEditingArticle((prev) => ({ ...prev, title: e.target.value }))}
               required
             />
           </div>
@@ -641,9 +645,7 @@ export default function AdminPage() {
               type="text"
               className="w-full p-2 border border-border rounded-lg bg-background"
               value={editingArticle?.slug || ''}
-              onChange={(e) =>
-                setEditingArticle((prev) => ({ ...prev, slug: e.target.value }))
-              }
+              onChange={(e) => setEditingArticle((prev) => ({ ...prev, slug: e.target.value }))}
               placeholder="url-friendly-slug"
               required
             />
@@ -684,9 +686,7 @@ export default function AdminPage() {
               <select
                 className="w-full p-2 border border-border rounded-lg bg-background"
                 value={editingArticle?.status || 'draft'}
-                onChange={(e) =>
-                  setEditingArticle((prev) => ({ ...prev, status: e.target.value }))
-                }
+                onChange={(e) => setEditingArticle((prev) => ({ ...prev, status: e.target.value }))}
               >
                 <option value="draft">Draft</option>
                 <option value="In Preparation">In Preparation</option>
@@ -718,7 +718,10 @@ export default function AdminPage() {
                 className="w-full p-2 border border-border rounded-lg bg-background"
                 value={editingArticle?.citations || 0}
                 onChange={(e) =>
-                  setEditingArticle((prev) => ({ ...prev, citations: parseInt(e.target.value) || 0 }))
+                  setEditingArticle((prev) => ({
+                    ...prev,
+                    citations: Number.parseInt(e.target.value) || 0,
+                  }))
                 }
                 min="0"
               />
@@ -732,9 +735,7 @@ export default function AdminPage() {
                 type="text"
                 className="w-full p-2 border border-border rounded-lg bg-background"
                 value={editingArticle?.doi || ''}
-                onChange={(e) =>
-                  setEditingArticle((prev) => ({ ...prev, doi: e.target.value }))
-                }
+                onChange={(e) => setEditingArticle((prev) => ({ ...prev, doi: e.target.value }))}
                 placeholder="10.1000/182"
               />
             </div>
@@ -745,9 +746,7 @@ export default function AdminPage() {
                 type="text"
                 className="w-full p-2 border border-border rounded-lg bg-background"
                 value={editingArticle?.arxiv || ''}
-                onChange={(e) =>
-                  setEditingArticle((prev) => ({ ...prev, arxiv: e.target.value }))
-                }
+                onChange={(e) => setEditingArticle((prev) => ({ ...prev, arxiv: e.target.value }))}
                 placeholder="2301.00000"
               />
             </div>

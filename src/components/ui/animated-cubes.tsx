@@ -41,7 +41,7 @@ export function AnimatedCubes() {
       canvas.height = canvas.offsetHeight
     }
 
-    const drawCube = (cube: typeof cubes[0]) => {
+    const drawCube = (cube: (typeof cubes)[0]) => {
       ctx.save()
       ctx.translate(cube.x, cube.y)
       ctx.rotate(cube.rotation)

@@ -4,7 +4,7 @@ import { ArrowRight, BookOpen, Calendar, Clock, Star, Tag, User } from 'lucide-r
 import Link from 'next/link'
 import { useState } from 'react'
 
-const books = [
+const staticBooks = [
   {
     id: 1,
     title: 'Clean Code',
@@ -95,6 +95,7 @@ const genres = ['All', 'Programming', 'System Design', 'Database', 'Self Develop
 const statuses = ['All', 'completed', 'reading', 'wishlist']
 
 export default function BooksPage() {
+  const books = staticBooks
   const [selectedGenre, setSelectedGenre] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
 

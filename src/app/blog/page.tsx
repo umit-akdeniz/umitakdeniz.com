@@ -1,18 +1,27 @@
 import { Button } from '@/components/ui/button'
-import { type BlogPost, getBlogPosts } from '@/lib/content-manager'
+import { prisma } from '@/lib/prisma'
 import { Calendar, Clock, Tag } from 'lucide-react'
 import Link from 'next/link'
 
-export default function BlogPage() {
-  const posts = getBlogPosts()
+export default async function BlogPage() {
+  const posts = await prisma.blogPost.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      publishedAt: 'desc',
+    },
+  })
 
   // Featured posts (posts with featured: true)
-  const featuredPosts = posts.filter((post) => post.featured)
-  const regularPosts = posts.filter((post) => !post.featured)
+  const featuredPosts = posts.filter((post) => (post as any).featured || false)
+  const regularPosts = posts.filter((post) => !(post as any).featured)
 
-  const getBadgeColor = (category: string) => {
-    switch (category) {
+  const getBadgeColor = (tag: string) => {
+    if (!tag) return 'bg-gray-500/10 text-gray-600 border-gray-500/20'
+    switch (tag.toLowerCase()) {
       case 'tech':
+      case 'technology':
         return 'bg-blue-500/10 text-blue-600 border-blue-500/20'
       case 'personal':
         return 'bg-green-500/10 text-green-600 border-green-500/20'
@@ -81,15 +90,10 @@ export default function BlogPage() {
 
                   <div className="p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <span
-                        className={`px-3 py-1 text-xs rounded-full border ${getBadgeColor(post.category)}`}
-                      >
-                        {post.category}
-                      </span>
-                      {post.tags.slice(0, 2).map((tag) => (
+                      {(post.tags || []).slice(0, 3).map((tag, idx) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-full"
+                          className={`px-3 py-1 text-xs rounded-full border ${idx === 0 ? getBadgeColor(tag) : 'bg-secondary/50 text-secondary-foreground border-secondary/20'}`}
                         >
                           {tag}
                         </span>
@@ -103,21 +107,23 @@ export default function BlogPage() {
                     </Link>
 
                     <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                      {post.description}
+                      {post.excerpt || 'No description available'}
                     </p>
 
                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1">
                           <Calendar className="w-4 h-4" />
-                          <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                          <span>
+                            {post.publishedAt
+                              ? new Date(post.publishedAt).toLocaleDateString()
+                              : new Date(post.createdAt).toLocaleDateString()}
+                          </span>
                         </div>
-                        {post.readTime && (
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            <span>{post.readTime}</span>
-                          </div>
-                        )}
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          <span>5 min read</span>
+                        </div>
                       </div>
                       <Button size="sm" variant="ghost" asChild>
                         <Link href={`/blog/${post.slug}`}>Read More →</Link>
@@ -175,9 +181,9 @@ export default function BlogPage() {
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
                               <span
-                                className={`px-3 py-1 text-xs rounded-full border ${getBadgeColor(post.category)}`}
+                                className={`px-3 py-1 text-xs rounded-full border bg-blue-500/10 text-blue-600 border-blue-500/20`}
                               >
-                                {post.category}
+                                {post.tags[0] || 'General'}
                               </span>
                               {post.featured && (
                                 <span className="px-2 py-1 text-xs bg-yellow-500/10 text-yellow-600 border border-yellow-500/20 rounded-full">
@@ -194,25 +200,27 @@ export default function BlogPage() {
                         </div>
 
                         <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                          {post.description}
+                          {post.excerpt || 'No description available'}
                         </p>
 
                         <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-4 h-4" />
-                            <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                            <span>
+                              {post.publishedAt
+                                ? new Date(post.publishedAt).toLocaleDateString()
+                                : new Date(post.createdAt).toLocaleDateString()}
+                            </span>
                           </div>
-                          {post.readTime && (
-                            <div className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              <span>{post.readTime}</span>
-                            </div>
-                          )}
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            <span>5 min read</span>
+                          </div>
                         </div>
 
                         <div className="flex items-center justify-between">
                           <div className="flex gap-2">
-                            {post.tags.slice(0, 3).map((tag) => (
+                            {(post.tags || []).slice(0, 3).map((tag) => (
                               <span
                                 key={tag}
                                 className="px-2 py-1 text-xs bg-secondary/50 text-secondary-foreground rounded-full"

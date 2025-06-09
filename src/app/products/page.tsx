@@ -12,7 +12,7 @@ const productCategories = [
   { id: 'vintage', label: 'Vintage Tech' },
 ]
 
-const products = [
+const staticProducts = [
   {
     id: 1,
     slug: 'quantum-calculator',
@@ -55,6 +55,7 @@ const products = [
 ]
 
 export default function ProductsPage() {
+  const products = staticProducts
   const [selectedCategory, setSelectedCategory] = useState('all')
 
   const filteredProducts =

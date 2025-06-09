@@ -38,7 +38,7 @@ export function FloatingOrbs() {
       opacity: Math.random() * 0.3 + 0.1,
     })
 
-    const drawOrb = (orb: typeof orbs[0]) => {
+    const drawOrb = (orb: (typeof orbs)[0]) => {
       // Create radial gradient
       const gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius)
       gradient.addColorStop(0, `hsla(${orb.hue}, 70%, 60%, ${orb.opacity})`)

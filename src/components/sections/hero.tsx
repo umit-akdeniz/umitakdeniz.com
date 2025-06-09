@@ -1,8 +1,8 @@
 'use client'
 
 import { FloatingShapes } from '@/components/3d/floating-shapes'
-import { Button } from '@/components/ui/button'
 import { AnimatedCubes } from '@/components/ui/animated-cubes'
+import { Button } from '@/components/ui/button'
 import { FloatingOrbs } from '@/components/ui/floating-orbs'
 import { GeometricPatterns } from '@/components/ui/geometric-patterns'
 import { ParticleSystem } from '@/components/ui/particle-system'
@@ -20,7 +20,7 @@ export function Hero() {
       <ParticleSystem />
       <SpiderWeb />
       <AnimatedCubes />
-      
+
       {/* 3D Floating Shapes */}
       <Suspense fallback={null}>
         <FloatingShapes />

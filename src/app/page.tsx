@@ -21,7 +21,7 @@ export default function HomePage() {
       <TechStack />
       <FeaturedProjects />
       <PackageShowcase />
-      
+
       <section className="container text-center py-20 md:py-24">
         <h2 className="text-3xl font-bold tracking-tight mb-8">Interactive 3D Demo</h2>
         <Suspense

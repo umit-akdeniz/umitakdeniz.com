@@ -27,11 +27,24 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json()
+    console.log('Received article data:', data)
+
+    // Find admin user by email instead of hardcoded ID
+    const adminUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email: 'umitakdenizjob@gmail.com' }, { role: 'ADMIN' }],
+      },
+    })
+
+    if (!adminUser) {
+      console.error('Admin user not found')
+      return NextResponse.json({ error: 'Admin user not found' }, { status: 400 })
+    }
 
     const article = await prisma.article.create({
       data: {
         ...data,
-        authorId: data.authorId || 'admin', // Default to admin user
+        authorId: data.authorId || adminUser.id,
       },
       include: {
         author: {
@@ -46,7 +59,14 @@ export async function POST(request: Request) {
     return NextResponse.json(article, { status: 201 })
   } catch (error) {
     console.error('Error creating article:', error)
-    return NextResponse.json({ error: 'Failed to create article' }, { status: 500 })
+    console.error('Error details:', error)
+    return NextResponse.json(
+      {
+        error: 'Failed to create article',
+        details: error instanceof Error ? error.message : 'Unknown error',
+      },
+      { status: 500 }
+    )
   }
 }
 

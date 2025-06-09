@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 
 export default async function ProjectsPage() {
   const projects = await prisma.project.findMany({
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
   })
 
   return (

@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button'
 import { Lock, User } from 'lucide-react'
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function AdminLoginPage() {
   const [credentials, setCredentials] = useState({ username: '', password: '' })
@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
               <input
                 type="text"
                 value={credentials.username}
-                onChange={(e) => setCredentials(prev => ({ ...prev, username: e.target.value }))}
+                onChange={(e) => setCredentials((prev) => ({ ...prev, username: e.target.value }))}
                 className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Enter username"
                 required
@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
               <input
                 type="password"
                 value={credentials.password}
-                onChange={(e) => setCredentials(prev => ({ ...prev, password: e.target.value }))}
+                onChange={(e) => setCredentials((prev) => ({ ...prev, password: e.target.value }))}
                 className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Enter password"
                 required
@@ -83,11 +83,7 @@ export default function AdminLoginPage() {
             </div>
           </div>
 
-          <Button 
-            type="submit" 
-            className="w-full py-3 text-lg" 
-            disabled={loading}
-          >
+          <Button type="submit" className="w-full py-3 text-lg" disabled={loading}>
             {loading ? 'Signing in...' : 'Sign In'}
           </Button>
         </form>

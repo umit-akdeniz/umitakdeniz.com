@@ -13,7 +13,7 @@ const photoCategories = [
   { id: 'tech', label: 'Tech & Setup' },
 ]
 
-const photos = [
+const staticPhotos = [
   {
     id: 1,
     slug: 'quantum-physics-lab-setup',
@@ -125,6 +125,7 @@ const photos = [
 ]
 
 export default function PhotosPage() {
+  const photos = staticPhotos
   const [selectedCategory, setSelectedCategory] = useState('all')
 
   const filteredPhotos =

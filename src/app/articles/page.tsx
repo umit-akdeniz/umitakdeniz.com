@@ -13,7 +13,7 @@ const articleCategories = [
 
 export default async function ArticlesPage() {
   const articles = await prisma.article.findMany({
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
   })
 
   // İlk yüklemede tüm makaleleri göster
@@ -138,13 +138,15 @@ export default async function ArticlesPage() {
                         <div className="flex items-center gap-1">
                           <Users className="w-4 h-4" />
                           <span>
-                            {article.authors?.length || 0} author{(article.authors?.length || 0) > 1 ? 's' : ''}
+                            {article.authors?.length || 0} author
+                            {(article.authors?.length || 0) > 1 ? 's' : ''}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-xs text-muted-foreground mb-4">
-                        <span className="font-medium">Authors:</span> {article.authors?.join(', ') || 'No authors'}
+                        <span className="font-medium">Authors:</span>{' '}
+                        {article.authors?.join(', ') || 'No authors'}
                       </div>
 
                       <div className="flex gap-2">

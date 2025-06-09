@@ -1,58 +1,14 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
+import { prisma } from '@/lib/prisma'
 import { Clock, Music, Play } from 'lucide-react'
 import Link from 'next/link'
 
-const albums = [
-  {
-    id: 1,
-    slug: 'master-of-puppets',
-    title: 'Master of Puppets',
-    artist: 'Metallica',
-    description: 'Third studio album by American heavy metal band Metallica',
-    genre: 'Heavy Metal',
-    year: '1986',
-    duration: '54:47',
-    tracks: 8,
-    image: '🎸',
-    rating: 5,
-    label: 'Elektra Records',
-    color: 'from-red-600 to-orange-600',
-  },
-  {
-    id: 2,
-    slug: 'dark-side-of-the-moon',
-    title: 'The Dark Side of the Moon',
-    artist: 'Pink Floyd',
-    description: 'Eighth studio album by English rock band Pink Floyd',
-    genre: 'Progressive Rock',
-    year: '1973',
-    duration: '42:59',
-    tracks: 9,
-    image: '🌙',
-    rating: 5,
-    label: 'Harvest Records',
-    color: 'from-purple-600 to-pink-600',
-  },
-  {
-    id: 3,
-    slug: 'nevermind',
-    title: 'Nevermind',
-    artist: 'Nirvana',
-    description: 'Second studio album by American rock band Nirvana',
-    genre: 'Grunge',
-    year: '1991',
-    duration: '48:55',
-    tracks: 12,
-    image: '🎤',
-    rating: 5,
-    label: 'DGC Records',
-    color: 'from-blue-600 to-teal-600',
-  },
-]
-
-export default function AlbumsPage() {
+export default async function AlbumsPage() {
+  const albums = await prisma.album.findMany({
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -97,9 +53,9 @@ export default function AlbumsPage() {
 
                 {/* Album Cover */}
                 <div
-                  className={`relative h-48 bg-gradient-to-br ${album.color} overflow-hidden flex items-center justify-center`}
+                  className={`relative h-48 bg-gradient-to-br ${album.color || 'from-purple-600 to-pink-600'} overflow-hidden flex items-center justify-center`}
                 >
-                  <div className="text-6xl">{album.image}</div>
+                  <div className="text-6xl">{album.image || '🎵'}</div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
                   {/* Play Button Overlay */}
@@ -146,21 +102,19 @@ export default function AlbumsPage() {
                   {/* Album Details */}
                   <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">{album.artist}</span>
+                      <span className="font-medium">
+                        {(album as any).artist || 'Unknown Artist'}
+                      </span>
                       <span>•</span>
-                      <span>{album.year}</span>
+                      <span>{(album as any).year || new Date(album.createdAt).getFullYear()}</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      {'★'.repeat(album.rating)}
+                      {'★'.repeat((album as any).rating || 5)}
                     </div>
                   </div>
 
                   {/* Action Button */}
-                  <Button
-                    size="sm"
-                    className="w-full bg-primary hover:bg-primary/90"
-                    asChild
-                  >
+                  <Button size="sm" className="w-full bg-primary hover:bg-primary/90" asChild>
                     <Link href={`/albums/${album.slug}`}>
                       <Music className="w-4 h-4 mr-2" />
                       View Album

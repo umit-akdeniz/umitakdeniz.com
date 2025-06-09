@@ -43,12 +43,7 @@ export function ParticleSystem() {
     const updateParticles = () => {
       // Create new particles occasionally
       if (Math.random() < 0.1) {
-        particles.push(
-          createParticle(
-            Math.random() * canvas.width,
-            Math.random() * canvas.height
-          )
-        )
+        particles.push(createParticle(Math.random() * canvas.width, Math.random() * canvas.height))
       }
 
       // Update existing particles

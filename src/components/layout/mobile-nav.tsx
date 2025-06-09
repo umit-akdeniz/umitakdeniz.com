@@ -143,7 +143,6 @@ export function MobileNav() {
                     <span className="text-lg font-medium">Contact</span>
                   </Link>
                 </motion.div>
-
               </div>
             </nav>
 

@@ -32,6 +32,7 @@ model BlogPost {
   excerpt     String?
   image       String?
   tags        String[]
+  featured    Boolean  @default(false)
   published   Boolean  @default(false)
   publishedAt DateTime?
   author      User     @relation(fields: [authorId], references: [id])
