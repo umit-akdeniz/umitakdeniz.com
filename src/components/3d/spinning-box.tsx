@@ -1,9 +1,9 @@
-"use client" // 3D sahneler ve interaktivite istemci tarafında çalışır
+'use client' // 3D sahneler ve interaktivite istemci tarafında çalışır
 
-import { useRef } from 'react'
-import * as THREE from 'three' // <--- EKLENEN SATIR
+import { MeshDistortMaterial, OrbitControls } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, MeshDistortMaterial } from '@react-three/drei'
+import { useRef } from 'react'
+import type * as THREE from 'three' // <--- EKLENEN SATIR
 
 function Scene() {
   const meshRef = useRef<THREE.Mesh>(null!)

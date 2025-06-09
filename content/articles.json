@@ -1,0 +1,44 @@
+[
+  {
+    "id": "1",
+    "title": "Quantum Error Correction in NISQ Devices: A Comprehensive Analysis",
+    "slug": "quantum-error-correction-nisq-devices",
+    "description": "Investigation of quantum error correction techniques for near-term quantum computers with experimental validation on IBM Quantum devices",
+    "category": "research",
+    "journal": "Physical Review A",
+    "status": "published",
+    "authors": ["Ümit Akdeniz", "Dr. Sarah Johnson", "Prof. Michael Chen"],
+    "doi": "10.1103/PhysRevA.109.032415",
+    "arxiv": "2403.12345",
+    "citations": 23,
+    "publishedAt": "2024-03-15"
+  },
+  {
+    "id": "2",
+    "title": "Machine Learning Approaches to Particle Physics Data Analysis",
+    "slug": "machine-learning-particle-physics-analysis",
+    "description": "Novel deep learning architectures for high-energy physics event classification and anomaly detection at the Large Hadron Collider",
+    "category": "research",
+    "journal": "Journal of High Energy Physics",
+    "status": "under-review",
+    "authors": ["Ümit Akdeniz", "CERN Collaboration"],
+    "doi": "",
+    "arxiv": "2402.09876",
+    "citations": 0,
+    "publishedAt": "2024-02-20"
+  },
+  {
+    "id": "3",
+    "title": "Building Modern Physics Simulations with Three.js and WebGL",
+    "slug": "modern-physics-simulations-threejs-webgl",
+    "description": "A comprehensive guide to creating interactive physics simulations for educational purposes using modern web technologies",
+    "category": "technical",
+    "journal": "Dev.to",
+    "status": "published",
+    "authors": ["Ümit Akdeniz"],
+    "doi": "",
+    "arxiv": "",
+    "citations": 0,
+    "publishedAt": "2024-01-10"
+  }
+]

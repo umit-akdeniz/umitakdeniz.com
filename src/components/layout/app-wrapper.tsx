@@ -1,42 +1,39 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
-import { Toaster } from 'sonner';
-import { Preloader } from '@/components/ui/preloader';
+import { Footer } from '@/components/layout/footer'
+import { Header } from '@/components/layout/header'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import { Preloader } from '@/components/ui/preloader'
+import { useSmoothScroll } from '@/hooks/use-smooth-scroll'
+import { AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { Toaster } from 'sonner'
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window === 'undefined') {
-      return true;
+      return true
     }
-    return sessionStorage.getItem('isLoaded') !== 'true';
-  });
+    return sessionStorage.getItem('isLoaded') !== 'true'
+  })
+
+  // Smooth scroll hook
+  useSmoothScroll()
 
   useEffect(() => {
     if (isLoading) {
       const timer = setTimeout(() => {
-        setIsLoading(false);
-        sessionStorage.setItem('isLoaded', 'true');
-      }, 2500);
+        setIsLoading(false)
+        sessionStorage.setItem('isLoaded', 'true')
+      }, 2500)
 
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer)
     }
-  }, [isLoading]);
+  }, [isLoading])
 
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
-      </AnimatePresence>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <AnimatePresence mode="wait">{isLoading && <Preloader />}</AnimatePresence>
 
       <div className="relative flex min-h-screen flex-col bg-background">
         <Header />
@@ -45,5 +42,5 @@ export function AppWrapper({ children }: { children: React.ReactNode }) {
       </div>
       <Toaster richColors />
     </ThemeProvider>
-  );
+  )
 }

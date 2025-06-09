@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "title": "Quantum Simulation Platform",
+    "slug": "quantum-simulation-platform",
+    "description": "Kuantum fiziği simülasyon platformu - Web tabanlı kuantum hesaplama simülatörü",
+    "image": "/images/project-1.jpg",
+    "technologies": ["React", "Three.js", "WebGL", "Python", "NumPy"],
+    "githubUrl": "https://github.com/umitakdeniz",
+    "demoUrl": "https://example.com",
+    "featured": true,
+    "publishedAt": "2024-03-15"
+  },
+  {
+    "id": "2",
+    "title": "Physics Engine Library",
+    "slug": "physics-engine-library",
+    "description": "JavaScript ile yazılmış 2D fizik motoru - Çarpışma tespiti ve parçacık sistemleri",
+    "image": "/images/project-2.jpg",
+    "technologies": ["TypeScript", "Canvas API", "WebWorkers", "Jest"],
+    "githubUrl": "https://github.com/umitakdeniz",
+    "demoUrl": "https://example.com",
+    "featured": true,
+    "publishedAt": "2024-02-20"
+  },
+  {
+    "id": "3",
+    "title": "Mathematical Visualization Tool",
+    "slug": "mathematical-visualization-tool",
+    "description": "İnteraktif matematik ve fizik formül görselleştirici",
+    "image": "/images/project-3.jpg",
+    "technologies": ["Next.js", "D3.js", "MathJax", "Framer Motion"],
+    "githubUrl": "https://github.com/umitakdeniz",
+    "demoUrl": "https://example.com",
+    "featured": false,
+    "publishedAt": "2024-01-10"
+  }
+]

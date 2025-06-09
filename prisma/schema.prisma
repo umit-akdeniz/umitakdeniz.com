@@ -11,9 +11,35 @@ model User {
   id        String    @id @default(cuid())
   email     String    @unique
   name      String?
+  role      Role      @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  
+  // Relations
   projects  Project[]
+  blogPosts BlogPost[]
+  products  Product[]
+  albums    Album[]
+  photos    Photo[]
+  articles  Article[]
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     Json?    // Rich content with blocks (text, code, formulas, images, videos, etc.)
+  excerpt     String?
+  image       String?
+  tags        String[]
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("blog_posts")
 }
 
 model Project {
@@ -21,12 +47,122 @@ model Project {
   title        String
   slug         String   @unique
   description  String
+  content      Json?    // Rich content with detailed project information
   image        String?
   tags         String[]
+  githubUrl    String?
+  demoUrl      String?
+  technologies String[]
+  featured     Boolean  @default(false)
+  status       String   @default("active") // active, completed, archived
+  published    Boolean  @default(true)
+  publishedAt  DateTime?
   author       User     @relation(fields: [authorId], references: [id])
   authorId     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model Product {
+  id           String      @id @default(cuid())
+  title        String
+  slug         String      @unique
+  description  String
+  fullDescription String?
+  category     String
+  type         String
+  status       String
+  price        String?
+  year         String?
+  condition    String?
+  location     String?
+  acquired     String?
+  image        String?
+  color        String?
+  specs        Json?       // JSON for specifications
+  history      String?
+  author       User        @relation(fields: [authorId], references: [id])
+  authorId     String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model Album {
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  description    String
+  fullDescription String?
+  genre          String
+  duration       String
+  tracks         Int
+  image          String?
+  color          String?
+  spotifyUrl     String?
+  youtubeUrl     String?
+  mood           String?
+  created        String?
+  lastUpdated    String?
+  totalPlays     String?
+  followers      String?
+  featured       Json?    // JSON for featured tracks
+  author         User     @relation(fields: [authorId], references: [id])
+  authorId       String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Photo {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  description     String
+  fullDescription String?
+  category        String
+  location        String?
+  date            DateTime?
+  image           String?
+  color           String?
+  likes           Int      @default(0)
+  camera          String?
+  lens            String?
+  settings        String?
+  tags            String[]
+  story           String?
+  technical       Json?    // JSON for technical details
+  author          User     @relation(fields: [authorId], references: [id])
+  authorId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Article {
+  id               String    @id @default(cuid())
+  title            String
+  slug             String    @unique
+  description      String
+  abstract         String?
+  content          Json?     // Rich content with blocks (text, code, formulas, images, videos, etc.)
+  fullText         String?   // Full text for search indexing
+  category         String
+  journal          String?
+  status           String
+  type             String
+  citations        Int       @default(0)
+  doi              String?
+  arxiv            String?
+  image            String?
+  color            String?
+  authors          String[]
+  keywords         String[]
+  impact           String?
+  funding          String?
+  acknowledgments  String?
+  publishedAt      DateTime?
+  author           User      @relation(fields: [authorId], references: [id])
+  authorId         String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 enum Role {

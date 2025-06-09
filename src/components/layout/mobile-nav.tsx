@@ -1,40 +1,158 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { useUiStore } from "@/stores/ui-store"
-
-const links = [
-  { href: "/projects", label: "Projeler" },
-  { href: "/about", label: "Hakkımda" },
-  { href: "/contact", label: "İletişim" },
-]
+import { useUiStore } from '@/stores/ui-store'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Briefcase, ChevronDown, FolderOpen, Mail, PenTool, Settings, User } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+import { ThemeToggle } from './theme-toggle'
 
 export function MobileNav() {
   const { isMenuOpen, closeMenu } = useUiStore()
+  const [isCollectionsOpen, setIsCollectionsOpen] = useState(false)
+
+  const mainLinks = [
+    { href: '/about', label: 'About', icon: User },
+    { href: '/projects', label: 'Projects', icon: Briefcase },
+    { href: '/blog', label: 'Blog', icon: PenTool },
+  ]
 
   return (
     <AnimatePresence>
       {isMenuOpen && (
         <motion.div
-          initial={{ y: "-100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed inset-0 z-40 bg-background md:hidden"
+          initial={{ x: '-100%' }}
+          animate={{ x: 0 }}
+          exit={{ x: '-100%' }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md md:hidden"
         >
-          <nav className="container flex flex-col items-center justify-center h-full gap-8">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={closeMenu}
-                className="text-2xl font-semibold transition-colors hover:text-primary"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-6 border-b border-border/50">
+              <span className="text-xl font-bold">Menu</span>
+              <button onClick={closeMenu} className="p-2 hover:bg-accent rounded-lg">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <nav className="flex-1 overflow-y-auto p-6">
+              <div className="space-y-4">
+                {mainLinks.map((link, index) => {
+                  const Icon = link.icon
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={closeMenu}
+                        className="flex items-center gap-4 p-4 rounded-xl bg-card/50 hover:bg-accent transition-all duration-200 group"
+                      >
+                        <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                          <Icon className="w-5 h-5 text-primary" />
+                        </div>
+                        <span className="text-lg font-medium">{link.label}</span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="space-y-2"
+                >
+                  <button
+                    onClick={() => setIsCollectionsOpen(!isCollectionsOpen)}
+                    className="flex items-center justify-between w-full p-4 rounded-xl bg-card/50 hover:bg-accent transition-all duration-200 group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="p-2 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
+                        <FolderOpen className="w-5 h-5 text-purple-500" />
+                      </div>
+                      <span className="text-lg font-medium">Collections</span>
+                    </div>
+                    <ChevronDown
+                      className={`w-5 h-5 transition-transform ${isCollectionsOpen ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {isCollectionsOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-6 space-y-2">
+                          {[
+                            { href: '/books', label: 'Books' },
+                            { href: '/albums', label: 'Albums' },
+                            { href: '/photos', label: 'Photos' },
+                            { href: '/products', label: 'Products' },
+                            { href: '/articles', label: 'Articles' },
+                            { href: '/bookmarks', label: 'Bookmarks' },
+                          ].map((link, index) => (
+                            <motion.div
+                              key={link.href}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05 }}
+                            >
+                              <Link
+                                href={link.href}
+                                onClick={closeMenu}
+                                className="flex items-center p-3 rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
+                              >
+                                <span>{link.label}</span>
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Link
+                    href="/contact"
+                    onClick={closeMenu}
+                    className="flex items-center gap-4 p-4 rounded-xl bg-card/50 hover:bg-accent transition-all duration-200 group"
+                  >
+                    <div className="p-2 rounded-lg bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
+                      <Mail className="w-5 h-5 text-green-500" />
+                    </div>
+                    <span className="text-lg font-medium">Contact</span>
+                  </Link>
+                </motion.div>
+
+              </div>
+            </nav>
+
+            <div className="p-6 border-t border-border/50">
+              <div className="flex items-center justify-center gap-4">
+                <ThemeToggle />
+              </div>
+            </div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

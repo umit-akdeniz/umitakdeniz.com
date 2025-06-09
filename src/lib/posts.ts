@@ -20,7 +20,7 @@ export function getPostBySlug(slug: string) {
 export function getAllPosts() {
   const slugs = getPostSlugs()
   const posts = slugs
-    .map(slug => getPostBySlug(slug))
+    .map((slug) => getPostBySlug(slug))
     .sort((post1, post2) => (post1.frontmatter.date > post2.frontmatter.date ? -1 : 1))
   return posts
 }

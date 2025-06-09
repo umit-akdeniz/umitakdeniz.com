@@ -1,27 +1,26 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { AppWrapper } from '@/components/layout/app-wrapper'; // Yeni oluşturduğumuz sarmalayıcıyı import ediyoruz
-import './globals.css';
+import { AppWrapper } from '@/components/layout/app-wrapper'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const inter = Inter({ subsets: ['latin'] })
 
-// Artık metadata'yı buradan güvenle export edebiliriz
 export const metadata: Metadata = {
-  title: 'Ümit Akdeniz | Portfolyo',
-  description: 'Modern web teknolojileri ile geliştirildi.',
-};
+  title: 'Ümit Akdeniz - Software Engineer & Physicist',
+  description:
+    'Portfolio website of Ümit Akdeniz - Software Engineer & Physicist. Research, projects, and technical articles.',
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html lang="tr" suppressHydrationWarning>
-      <body className={`min-h-screen bg-background font-sans antialiased ${inter.variable}`}>
-        {/* Tüm istemci taraflı mantık artık bu bileşenin içinde */}
+    <html lang="en">
+      <body className={inter.className}>
         <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
-  );
+  )
 }

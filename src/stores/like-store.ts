@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 type LikeState = {
-  likedProjects: number[]
-  toggleLike: (projectId: number) => void
+  likedProjects: string[]
+  toggleLike: (projectId: string) => void
 }
 
 export const useLikeStore = create<LikeState>()(

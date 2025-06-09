@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "title": "My First Blog Post",
+    "slug": "my-first-blog-post",
+    "description": "Welcome to my personal blog! This is my first post where I introduce myself and share my thoughts on web development.",
+    "content": "Welcome to my personal blog!\n\nI'm excited to start sharing my thoughts, experiences, and learnings in web development and technology. This blog will be a place where I document my journey as a developer, share tutorials, and discuss interesting projects I'm working on.\n\nIn this first post, I wanted to introduce myself and explain what you can expect from this blog. I'm a passionate developer who loves working with modern web technologies like React, Next.js, and TypeScript. I believe in continuous learning and sharing knowledge with the community.\n\nStay tuned for more posts about:\n- Web development tutorials\n- Project showcases\n- Technology reviews\n- Personal experiences in tech\n\nThank you for reading, and I hope you'll find the content useful!",
+    "category": "personal",
+    "tags": ["introduction", "blogging", "web development"],
+    "featured": true,
+    "image": "/images/blog-1.jpg",
+    "readTime": "3 min read",
+    "publishedAt": "2024-01-01",
+    "updatedAt": "2024-01-01"
+  },
+  {
+    "id": "2",
+    "title": "Building Modern Web Apps with Next.js",
+    "slug": "building-modern-web-apps-with-nextjs",
+    "description": "A comprehensive guide to building modern, performant web applications using Next.js 14 with the App Router.",
+    "content": "Next.js has revolutionized how we build React applications, and with the introduction of the App Router in version 13 and its improvements in version 14, development has become even more powerful and intuitive.\n\nIn this post, I'll walk you through the key features that make Next.js an excellent choice for modern web development:\n\n## Server-Side Rendering (SSR)\n\nNext.js provides built-in SSR capabilities that improve performance and SEO. With the App Router, you can easily create server components that render on the server, reducing the initial JavaScript bundle size.\n\n## File-based Routing\n\nThe new App Router uses a file-based routing system that's intuitive and powerful. You can create routes by simply adding folders and files to your app directory.\n\n## Performance Optimizations\n\nNext.js includes many performance optimizations out of the box:\n- Automatic code splitting\n- Image optimization\n- Font optimization\n- Static generation\n\n## TypeScript Support\n\nTypeScript is a first-class citizen in Next.js, providing excellent developer experience with type safety and IntelliSense.\n\nThese features make Next.js an excellent choice for building modern web applications that are fast, scalable, and maintainable.",
+    "category": "tech",
+    "tags": ["nextjs", "react", "web development", "tutorial"],
+    "featured": true,
+    "image": "/images/blog-2.jpg",
+    "readTime": "8 min read",
+    "publishedAt": "2024-01-15",
+    "updatedAt": "2024-01-16"
+  },
+  {
+    "id": "3",
+    "title": "CSS Grid vs Flexbox: When to Use What",
+    "slug": "css-grid-vs-flexbox-when-to-use-what",
+    "description": "Understanding the differences between CSS Grid and Flexbox, and knowing when to use each layout method for optimal results.",
+    "content": "CSS Grid and Flexbox are both powerful layout systems, but they serve different purposes and excel in different scenarios. Understanding when to use each one is crucial for creating efficient and maintainable layouts.\n\n## Flexbox: One-Dimensional Layouts\n\nFlexbox is designed for one-dimensional layouts - either a row or a column. It's perfect for:\n\n- Navigation bars\n- Button groups\n- Centering content\n- Distributing space between items\n- Aligning items within a container\n\n### Flexbox Example\n```css\n.navbar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n```\n\n## CSS Grid: Two-Dimensional Layouts\n\nCSS Grid is designed for two-dimensional layouts - both rows and columns simultaneously. It's ideal for:\n\n- Page layouts\n- Card grids\n- Complex responsive designs\n- Overlapping elements\n- Templates with multiple areas\n\n### CSS Grid Example\n```css\n.layout {\n  display: grid;\n  grid-template-columns: 200px 1fr 200px;\n  grid-template-rows: 60px 1fr 60px;\n  grid-template-areas:\n    'header header header'\n    'sidebar main aside'\n    'footer footer footer';\n}\n```\n\n## When to Use What\n\n**Use Flexbox when:**\n- Working with a single dimension (row or column)\n- Distributing space among items\n- Aligning items within a container\n- Creating responsive navigation\n\n**Use CSS Grid when:**\n- Creating complex page layouts\n- Working with both rows and columns\n- Overlapping elements\n- Creating responsive grid systems\n\n## Conclusion\n\nBoth Flexbox and CSS Grid are essential tools in modern CSS. They're not competing technologies - they complement each other. Many modern layouts use both: CSS Grid for the overall page structure and Flexbox for component-level layouts.\n\nThe key is understanding their strengths and choosing the right tool for the job.",
+    "category": "tutorial",
+    "tags": ["css", "flexbox", "grid", "layout", "frontend"],
+    "featured": false,
+    "readTime": "6 min read",
+    "publishedAt": "2024-02-01"
+  }
+]
