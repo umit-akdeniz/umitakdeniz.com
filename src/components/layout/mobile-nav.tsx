@@ -2,14 +2,12 @@
 
 import { useUiStore } from '@/stores/ui-store'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Briefcase, ChevronDown, FolderOpen, Mail, PenTool, Settings, User } from 'lucide-react'
+import { Briefcase, Mail, PenTool, User } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
 import { ThemeToggle } from './theme-toggle'
 
 export function MobileNav() {
   const { isMenuOpen, closeMenu } = useUiStore()
-  const [isCollectionsOpen, setIsCollectionsOpen] = useState(false)
 
   const mainLinks = [
     { href: '/about', label: 'About', icon: User },
@@ -66,66 +64,6 @@ export function MobileNav() {
                     </motion.div>
                   )
                 })}
-
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="space-y-2"
-                >
-                  <button
-                    onClick={() => setIsCollectionsOpen(!isCollectionsOpen)}
-                    className="flex items-center justify-between w-full p-4 rounded-xl bg-card/50 hover:bg-accent transition-all duration-200 group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="p-2 rounded-lg bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors">
-                        <FolderOpen className="w-5 h-5 text-purple-500" />
-                      </div>
-                      <span className="text-lg font-medium">Collections</span>
-                    </div>
-                    <ChevronDown
-                      className={`w-5 h-5 transition-transform ${isCollectionsOpen ? 'rotate-180' : ''}`}
-                    />
-                  </button>
-
-                  <AnimatePresence>
-                    {isCollectionsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pl-6 space-y-2">
-                          {[
-                            { href: '/books', label: 'Books' },
-                            { href: '/albums', label: 'Albums' },
-                            { href: '/photos', label: 'Photos' },
-                            { href: '/products', label: 'Products' },
-                            { href: '/articles', label: 'Articles' },
-                            { href: '/bookmarks', label: 'Bookmarks' },
-                          ].map((link, index) => (
-                            <motion.div
-                              key={link.href}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.05 }}
-                            >
-                              <Link
-                                href={link.href}
-                                onClick={closeMenu}
-                                className="flex items-center p-3 rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
-                              >
-                                <span>{link.label}</span>
-                              </Link>
-                            </motion.div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}

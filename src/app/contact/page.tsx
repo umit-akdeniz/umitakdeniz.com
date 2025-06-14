@@ -1,306 +1,137 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
-  Award,
-  BookOpen,
-  Briefcase,
-  Camera,
-  Code,
-  Coffee,
-  ExternalLink,
-  FileText,
-  Gamepad2,
-  Github,
-  Globe,
-  GraduationCap,
-  Instagram,
-  Linkedin,
   Mail,
-  MapPin,
-  MessageCircle,
-  Music,
-  Phone,
-  Send,
+  Github,
+  Linkedin,
   Twitter,
-  User,
-  Users,
-  Video,
-  Youtube,
-  Zap,
+  MessageCircle,
+  GraduationCap,
+  BookOpen,
 } from 'lucide-react'
-import { useState } from 'react'
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [statusMessage, setStatusMessage] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        setStatusMessage('Your message has been sent successfully! I will get back to you soon.')
-        setFormData({ name: '', email: '', subject: '', message: '' })
-      } else {
-        setSubmitStatus('error')
-        setStatusMessage(data.error || 'An error occurred. Please try again.')
-      }
-    } catch (error) {
-      setSubmitStatus('error')
-      setStatusMessage('Connection error. Please check your internet connection.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
-  }
+  const contactLinks = [
+    {
+      name: 'Email',
+      icon: Mail,
+      url: 'mailto:umit@akdeniz.dev',
+      username: 'umit@akdeniz.dev',
+      color: 'from-blue-500 to-blue-600',
+      description: 'Direct email communication',
+    },
+    {
+      name: 'GitHub',
+      icon: Github,
+      url: 'https://github.com/umit-akdeniz',
+      username: '@umit-akdeniz',
+      color: 'from-gray-800 to-gray-900',
+      description: 'Source code and projects',
+    },
+    {
+      name: 'LinkedIn',
+      icon: Linkedin,
+      url: 'https://linkedin.com/in/umitakdeniz',
+      username: '/in/umitakdeniz',
+      color: 'from-blue-600 to-blue-700',
+      description: 'Professional networking',
+    },
+    {
+      name: 'Twitter',
+      icon: Twitter,
+      url: 'https://twitter.com/umitakdeniz',
+      username: '@umitakdeniz',
+      color: 'from-black to-gray-800',
+      description: 'Thoughts and updates',
+    },
+    {
+      name: 'Discord',
+      icon: MessageCircle,
+      url: 'https://discord.com/users/umitakdeniz',
+      username: 'umitakdeniz',
+      color: 'from-indigo-500 to-purple-600',
+      description: 'Real-time chat',
+    },
+    {
+      name: 'Google Scholar',
+      icon: GraduationCap,
+      url: 'https://scholar.google.com/citations?user=umitakdeniz',
+      username: 'Ümit Akdeniz',
+      color: 'from-blue-500 to-blue-600',
+      description: 'Academic publications and citations',
+    },
+    {
+      name: 'ResearchGate',
+      icon: BookOpen,
+      url: 'https://www.researchgate.net/profile/Umit-Akdeniz',
+      username: 'Ümit Akdeniz',
+      color: 'from-teal-500 to-green-600',
+      description: 'Research network and collaboration',
+    },
+  ]
 
   return (
     <div className="container py-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold tracking-tight mb-4">Get In Touch</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Let's discuss your next project or collaboration opportunity
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
+            Get In Touch
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Connect for research collaborations, academic discussions, and professional
+            opportunities in theoretical physics.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
-          <div>
-            <h2 className="text-2xl font-semibold mb-8">Contact Information</h2>
-
-            <div className="space-y-6 mb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p className="text-muted-foreground">umit@example.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p className="text-muted-foreground">+90 555 123 4567</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="font-semibold">Location</h3>
-                  <p className="text-muted-foreground">Istanbul, Turkey</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Media & Professional Networks */}
-            <div className="space-y-8">
-              {/* Social Media */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <User className="w-5 h-5" />
-                  Social Media
-                </h3>
-                <div className="grid grid-cols-4 gap-3">
-                  <a
-                    href="https://twitter.com/umitakdeniz"
-                    className="group relative w-12 h-12 bg-gradient-to-r from-black to-gray-800 rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="X (Twitter)"
-                  >
-                    <Twitter className="w-6 h-6 text-white" />
-                  </a>
-                  <a
-                    href="https://instagram.com/umitakdeniz"
-                    className="group relative w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Instagram"
-                  >
-                    <Instagram className="w-6 h-6 text-white" />
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/umitakdeniz"
-                    className="group relative w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="LinkedIn"
-                  >
-                    <Linkedin className="w-6 h-6 text-white" />
-                  </a>
-                  <a
-                    href="https://github.com/umitakdeniz"
-                    className="group relative w-12 h-12 bg-gradient-to-r from-gray-900 to-gray-700 rounded-xl flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="GitHub"
-                  >
-                    <Github className="w-6 h-6 text-white" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Academic & Research */}
-              <div>
-                <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-                  <GraduationCap className="w-5 h-5" />
-                  Academic Profiles
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <a
-                    href="https://orcid.org/0000-0000-0000-0000"
-                    className="group flex items-center gap-3 p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="ORCID"
-                  >
-                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                      <ExternalLink className="w-4 h-4 text-green-600" />
-                    </div>
-                    <span className="text-white font-medium text-sm">ORCID</span>
-                  </a>
-                  <a
-                    href="https://scholar.google.com/citations?user=umitakdeniz"
-                    className="group flex items-center gap-3 p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl hover:scale-105 transition-all duration-300 hover:shadow-lg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Google Scholar"
-                  >
-                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <span className="text-white font-medium text-sm">Google Scholar</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-2xl font-semibold mb-8">Send Message</h2>
-
-            {/* Status Message */}
-            {submitStatus !== 'idle' && (
-              <div
-                className={`p-4 rounded-lg mb-6 ${
-                  submitStatus === 'success'
-                    ? 'bg-green-50 text-green-800 border border-green-200'
-                    : 'bg-red-50 text-red-800 border border-red-200'
-                }`}
+        {/* Contact Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {contactLinks.map((link) => {
+            const Icon = link.icon
+            return (
+              <a
+                key={link.name}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-primary/30"
               >
-                {statusMessage}
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="Your full name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                    placeholder="email@example.com"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="Subject of your message"
+                {/* Background gradient on hover */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${link.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                 />
-              </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={6}
-                  className="w-full px-3 py-2 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
-                  placeholder="Write your message here..."
-                />
-              </div>
+                {/* Content */}
+                <div className="relative z-10">
+                  <div
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${link.color} mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <Icon className="w-6 h-6 text-white" />
+                  </div>
 
-              <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
-                <Send className="w-5 h-5 mr-2" />
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-              </Button>
-            </form>
+                  <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {link.name}
+                  </h3>
+
+                  <p className="text-sm text-muted-foreground mb-2">{link.description}</p>
+
+                  <p className="text-sm font-mono text-primary/80 group-hover:text-primary transition-colors">
+                    {link.username}
+                  </p>
+                </div>
+
+                {/* Animated border */}
+                <div className="absolute inset-0 rounded-2xl border border-transparent bg-gradient-to-r from-primary/0 via-primary/20 to-primary/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </a>
+            )
+          })}
+        </div>
+
+        {/* Additional Info */}
+        <div className="text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 text-sm text-muted-foreground">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            Available for research collaborations and academic opportunities
           </div>
         </div>
       </div>

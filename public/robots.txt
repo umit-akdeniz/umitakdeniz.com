@@ -10,9 +10,5 @@ Disallow: /admin/
 Disallow: /_next/
 Disallow: /.*
 
-# Allow specific language pages
-Allow: /en/
-Allow: /tr/
-Allow: /de/
-Allow: /fr/
-Allow: /es/
+# Allow all English pages
+Allow: /

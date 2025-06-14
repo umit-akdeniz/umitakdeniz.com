@@ -1,67 +1,26 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Atom, Brain, Calculator } from 'lucide-react'
 
-const skillCategories = [
+const coreCompetencies = [
   {
-    title: 'Frontend',
-    titleEn: 'Frontend',
-    skills: [
-      { name: 'React', level: 90 },
-      { name: 'Next.js', level: 85 },
-      { name: 'TypeScript', level: 80 },
-      { name: 'Vue.js', level: 75 },
-      { name: 'Tailwind CSS', level: 90 },
-      { name: 'Sass/SCSS', level: 85 },
-    ],
+    key: 'theoretical',
+    icon: Atom,
+    title: 'Theoretical Physics',
+    areas: ['Quantum Mechanics', 'Statistical Physics', 'Theoretical Analysis'],
   },
   {
-    title: 'Backend',
-    titleEn: 'Backend',
-    skills: [
-      { name: 'Node.js', level: 85 },
-      { name: 'Express.js', level: 80 },
-      { name: 'Python', level: 75 },
-      { name: 'Django', level: 70 },
-      { name: 'PostgreSQL', level: 80 },
-      { name: 'MongoDB', level: 75 },
-    ],
+    key: 'computational',
+    icon: Calculator,
+    title: 'Computational Methods',
+    areas: ['Mathematical Modeling', 'Numerical Methods', 'Data Analysis'],
   },
   {
-    title: 'Araçlar & Diğer',
-    titleEn: 'Tools & Others',
-    skills: [
-      { name: 'Git', level: 90 },
-      { name: 'Docker', level: 75 },
-      { name: 'AWS', level: 70 },
-      { name: 'Figma', level: 85 },
-      { name: 'Jest', level: 80 },
-      { name: 'Webpack', level: 75 },
-    ],
-  },
-  {
-    title: 'Fiziksel Beceriler',
-    titleEn: 'Physical Skills',
-    skills: [
-      { name: 'Araba Kullanma', level: 95 },
-      { name: 'Motorsiklet', level: 88 },
-      { name: 'Daktilo Yazma', level: 82 },
-      { name: 'Fotoğrafçılık', level: 79 },
-      { name: 'Bisiklet', level: 85 },
-      { name: 'Yüzme', level: 75 },
-    ],
-  },
-  {
-    title: 'Hobi & İlgi Alanları',
-    titleEn: 'Hobbies & Interests',
-    skills: [
-      { name: 'Vintage Teknoloji', level: 92 },
-      { name: 'Klasik Arabalar', level: 89 },
-      { name: 'Müzik Prodüksiyonu', level: 73 },
-      { name: 'Kahve Hazırlama', level: 81 },
-      { name: 'Kitap Okuma', level: 87 },
-      { name: 'Seyahat', level: 78 },
-    ],
+    key: 'research',
+    icon: Brain,
+    title: 'Research Methodology',
+    areas: ['Scientific Research', 'Academic Writing', 'Peer Review'],
   },
 ]
 
@@ -69,49 +28,42 @@ export function Skills() {
   return (
     <section className="container py-20">
       <div className="text-center mb-16">
-        <h2 className="text-3xl font-bold tracking-tight mb-4">Skills</h2>
+        <h2 className="text-3xl font-bold tracking-tight mb-4">Core Competencies</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Technologies I use and my proficiency levels in each
+          Essential competencies in theoretical physics and research methodology
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8">
-        {skillCategories.map((category, categoryIndex) => (
-          <motion.div
-            key={category.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: categoryIndex * 0.1 }}
-            viewport={{ once: true }}
-            className="bg-card p-6 rounded-lg border"
-          >
-            <h3 className="text-xl font-semibold mb-6 text-center">{category.titleEn}</h3>
-
-            <div className="space-y-4">
-              {category.skills.map((skill, skillIndex) => (
-                <div key={skill.name}>
-                  <div className="flex justify-between mb-2">
-                    <span className="text-sm font-medium">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <div className="w-full bg-secondary rounded-full h-2">
-                    <motion.div
-                      className="bg-primary h-2 rounded-full"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      transition={{
-                        delay: categoryIndex * 0.1 + skillIndex * 0.05,
-                        duration: 1,
-                        ease: 'easeOut',
-                      }}
-                      viewport={{ once: true }}
-                    />
-                  </div>
+      <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {coreCompetencies.map((competency, index) => {
+          const Icon = competency.icon
+          return (
+            <motion.div
+              key={competency.key}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="bg-card p-8 rounded-lg border hover:shadow-lg transition-shadow"
+            >
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-8 h-8 text-primary" />
                 </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+                <h3 className="text-xl font-semibold">{competency.title}</h3>
+              </div>
+
+              <ul className="space-y-3">
+                {competency.areas.map((area, areaIndex) => (
+                  <li key={areaIndex} className="text-sm text-muted-foreground flex items-center">
+                    <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0" />
+                    {area}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )
+        })}
       </div>
     </section>
   )
